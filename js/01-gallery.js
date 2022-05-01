@@ -1,10 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-
-
-// console.log(galleryItems);
-
 const galleryEl = document.querySelector(".gallery");
 
 const galleryItemsMarkup = galleryItems.map(image =>
@@ -25,7 +21,24 @@ galleryEl.innerHTML = galleryItemsMarkup
 galleryEl.addEventListener("click", onImageClick);
 
 function onImageClick(event) {
-    event.preventDefault()
-    console.log(event.target.dataset.source)
-}
+  event.preventDefault()
 
+  if(!event.target.classList.contains("gallery__image")) {
+    return
+  } else{
+    const lightBoxEl = basicLightbox.create(`<img
+      src="${event.target.dataset.source}"
+      alt="${event.target.alt}"
+    />`)
+
+    lightBoxEl.show(() => galleryEl.addEventListener("keydown", onEscPress))
+
+    function onEscPress(evn) {
+      if(evn.code !== "Escape") {
+        return
+      } else{
+        lightBoxEl.close(() => galleryEl.removeEventListener("keydown", onEscPress))
+      }
+  }
+  }
+};

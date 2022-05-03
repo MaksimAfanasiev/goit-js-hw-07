@@ -4,10 +4,11 @@ import { galleryItems } from './gallery-items.js';
 const galleryEl = document.querySelector(".gallery")
 
 const galleryItemsMarkup = galleryItems.map(image =>
-    `
+    `<li>
     <a class="gallery__item" href="${image.original}">
     <img class="gallery__image" src="${image.preview}" alt="${image.description}"/>
     </a>
+    </li>
     `
 ).join("");
 
